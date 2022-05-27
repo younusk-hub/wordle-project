@@ -411,4 +411,4 @@ export const wordsArray = [
 "Wrong",
 "Young"]
 
-export default wordsArray;
+// export default wordsArray;

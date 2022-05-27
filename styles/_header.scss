@@ -1,0 +1,22 @@
+.heading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &__title {
+        margin: 40px;
+        font-size: 3em;
+    }
+
+    &__subheading{
+        margin-top: 40px;
+        margin-bottom: 40px;
+        font-size: 1.8em;
+    }
+
+    &__description {
+        margin: 0 90px 40px 90px;
+        text-align: center;
+    }
+}
