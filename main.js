@@ -7,10 +7,12 @@ const keys = document.querySelectorAll(".keyboard-row button")
 
 // Array of guessed words with an array of the word spilt into letters 
 const guessedWords = [[]]
-let word = "dairy"
+let word = wordsArray[Math.floor(Math.random() * (423 - 1) ) + 1].toLowerCase()
 let availableSpace = 1;
 let guessedWordCount = 0;
 
+console.log(Math.floor(Math.random() * (423 - 1) ) + 1);
+console.log(word);
 // Asigning the buttons to their data-key so it can be used
 for (let i = 0; i < keys.length; i++) {
     keys[i].onclick = ({ target }) => {
@@ -19,6 +21,9 @@ for (let i = 0; i < keys.length; i++) {
 
         if (letter === "enter") {
             handleSubmitWord();
+            return;
+        } else if (letter === "del") {
+            handleDeleteLetter()
             return;
         }
 
@@ -44,6 +49,28 @@ const updateGuessedWords = letter => {
     }
 }
 
+const handleDeleteLetter = () => {
+    const currentWordArray = getCurrentWordArray()
+    
+    if (currentWordArray.length !== 0) {
+        currentWordArray.pop()
+        const lastLetterEl = document.getElementById(String(availableSpace - 1))
+        lastLetterEl.textContent = ""
+
+        availableSpace--
+    }
+}
+
+const getTileColor = (letter, index) => {
+    if (!word.includes(letter)) {
+        return "darkgrey"
+    } else if (letter === word.charAt(index)){
+        return "green"
+    } else {
+        return "orange"
+    }
+}
+
 const handleSubmitWord = () => {
     const currentWordArray = getCurrentWordArray()
 
@@ -56,7 +83,7 @@ const handleSubmitWord = () => {
     const time = 200;
     currentWordArray.forEach((letter, index) => {
         setTimeout(() => {
-            const tileColor = "darkgrey";
+            const tileColor = getTileColor(letter, index);
 
             const letterId = firstLetterId + index;
             const letterEl = document.getElementById(letterId);
@@ -80,3 +107,4 @@ const handleSubmitWord = () => {
 
     guessedWords.push([])
 }
+
