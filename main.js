@@ -1,6 +1,6 @@
 // Import Array from words.js
 import { wordsArray } from './data/words.js';
-import 'animate.css';
+
 
 // Use query selector to get the buttons
 const keys = document.querySelectorAll(".keyboard-row button")
@@ -9,6 +9,7 @@ const keys = document.querySelectorAll(".keyboard-row button")
 const guessedWords = [[]]
 let word = "dairy"
 let availableSpace = 1;
+let guessedWordCount = 0;
 
 // Asigning the buttons to their data-key so it can be used
 for (let i = 0; i < keys.length; i++) {
@@ -51,15 +52,19 @@ const handleSubmitWord = () => {
         return;
     }
 
+    const firstLetterId = guessedWordCount * 5 + 1;
     const time = 200;
     currentWordArray.forEach((letter, index) => {
         setTimeout(() => {
-            const tileColor = "lightgrey";
+            const tileColor = "darkgrey";
 
             const letterId = firstLetterId + index;
-            const letterEl = document.getElementById(letterId)
-        })
+            const letterEl = document.getElementById(letterId);
+            letterEl.classList.add("animate__flipInX");
+            letterEl.style = `background-color:${tileColor};`;
+        }, time * index);
     })
+    guessedWordCount++
 
     const currentWord = currentWordArray.join("")
 
