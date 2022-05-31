@@ -1,21 +1,20 @@
 // Import Array from words.js
 import { wordsArray } from './data/words.js';
 
-
 // Use query selector to get the buttons
-const keys = document.querySelectorAll(".keyboard-row button")
+const button = document.querySelectorAll(".keyboard-row button")
 
 // Array of guessed words with an array of the word spilt into letters 
 const guessedWords = [[]]
 let word = wordsArray[Math.floor(Math.random() * (423 - 1) ) + 1].toLowerCase()
 let availableSpace = 1;
 let guessedWordCount = 0;
-
 console.log(Math.floor(Math.random() * (423 - 1) ) + 1);
 console.log(word);
+
 // Asigning the buttons to their data-key so it can be used
-for (let i = 0; i < keys.length; i++) {
-    keys[i].onclick = ({ target }) => {
+for (let i = 0; i < button.length; i++) {
+    button[i].onclick = ({target}) => {
         const letter = target.getAttribute("data-key")
         console.log(letter);
 
@@ -23,7 +22,15 @@ for (let i = 0; i < keys.length; i++) {
             handleSubmitWord();
             return;
         } else if (letter === "del") {
-            handleDeleteLetter()
+            const currentWordArray = guessedWords[guessedWords.length - 1]
+    
+            if (currentWordArray.length !== 0) {
+                currentWordArray.pop()
+                const lastLetterEl = document.getElementById(String(availableSpace - 1))
+                lastLetterEl.textContent = ""
+
+                availableSpace--
+            }
             return;
         }
 
@@ -31,14 +38,9 @@ for (let i = 0; i < keys.length; i++) {
     }
 }
 
-// A function to get the current word
-const getCurrentWordArray = () => {
-    return guessedWords[guessedWords.length - 1]
-}
-
 // A function to update the guessed words
 const updateGuessedWords = letter => {
-    const currentWordArray = getCurrentWordArray()
+    const currentWordArray = guessedWords[guessedWords.length - 1]
     
     if (currentWordArray && currentWordArray.length < 5) {
         currentWordArray.push(letter)
@@ -46,18 +48,6 @@ const updateGuessedWords = letter => {
         const availableSpaceEl = document.getElementById(String(availableSpace));
         availableSpaceEl.textContent = letter
         availableSpace++
-    }
-}
-
-const handleDeleteLetter = () => {
-    const currentWordArray = getCurrentWordArray()
-    
-    if (currentWordArray.length !== 0) {
-        currentWordArray.pop()
-        const lastLetterEl = document.getElementById(String(availableSpace - 1))
-        lastLetterEl.textContent = ""
-
-        availableSpace--
     }
 }
 
@@ -72,7 +62,7 @@ const getTileColor = (letter, index) => {
 }
 
 const handleSubmitWord = () => {
-    const currentWordArray = getCurrentWordArray()
+    const currentWordArray = guessedWords[guessedWords.length - 1]
 
     if (currentWordArray.length !== 5) {
         alert("Word must be 5 letters long!")
@@ -107,4 +97,3 @@ const handleSubmitWord = () => {
 
     guessedWords.push([])
 }
-

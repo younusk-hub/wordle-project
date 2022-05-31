@@ -410,5 +410,3 @@ export const wordsArray = [
 "Whole",
 "Wrong",
 "Young"]
-
-// export default wordsArray;
