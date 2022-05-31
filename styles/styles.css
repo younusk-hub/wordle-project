@@ -70,4 +70,20 @@ button {
   text-transform: uppercase;
   background-color: rgb(148, 144, 144);
   border-radius: 5px;
+}
+
+.game-buttons {
+  font-size: 20px;
+  margin: 10px;
+  background-color: grey;
+  padding: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.game-buttons-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }/*# sourceMappingURL=styles.css.map */

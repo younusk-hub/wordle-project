@@ -3,8 +3,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    // flex-grow: 1;
-    // overflow: hidden;
 }
 
 #board {
@@ -12,6 +10,7 @@
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-gap: 5px;
     padding: 10px;
+    
 }
 
 .square {
@@ -47,3 +46,19 @@ button {
     border-radius: 5px;
 }
 
+.game-buttons { 
+   font-size: 20px;
+   margin: 10px;
+   background-color: grey;
+   padding: 15px;
+   border-radius: 5px;
+   cursor: pointer;
+   text-decoration: none;
+   
+}
+
+.game-buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}

@@ -2,7 +2,7 @@
 import { wordsArray } from './data/words.js';
 
 // Use query selector to get the buttons
-const button = document.querySelectorAll(".keyboard-row button")
+const buttons = document.querySelectorAll(".keyboard-row button")
 
 // Array of guessed words with an array of the word spilt into letters 
 const guessedWords = [[]]
@@ -12,15 +12,16 @@ let guessedWordCount = 0;
 console.log(Math.floor(Math.random() * (423 - 1) ) + 1);
 console.log(word);
 
-// Asigning the buttons to their data-key so it can be used
-for (let i = 0; i < button.length; i++) {
-    button[i].onclick = ({target}) => {
+// Asigning the buttonss to their data-key so it can be used
+for (let i = 0; i < buttons.length; i++) {
+    buttons[i].onclick = ({target}) => {
         const letter = target.getAttribute("data-key")
         console.log(letter);
 
         if (letter === "enter") {
             handleSubmitWord();
             return;
+
         } else if (letter === "del") {
             const currentWordArray = guessedWords[guessedWords.length - 1]
     
@@ -33,7 +34,6 @@ for (let i = 0; i < button.length; i++) {
             }
             return;
         }
-
         updateGuessedWords(letter)
     }
 }
@@ -53,7 +53,7 @@ const updateGuessedWords = letter => {
 
 const getTileColor = (letter, index) => {
     if (!word.includes(letter)) {
-        return "darkgrey"
+        return "#2B2B2B"
     } else if (letter === word.charAt(index)){
         return "green"
     } else {
@@ -72,6 +72,7 @@ const handleSubmitWord = () => {
     const firstLetterId = guessedWordCount * 5 + 1;
     const time = 200;
     currentWordArray.forEach((letter, index) => {
+        console.log(letter);
         setTimeout(() => {
             const tileColor = getTileColor(letter, index);
 
@@ -79,19 +80,27 @@ const handleSubmitWord = () => {
             const letterEl = document.getElementById(letterId);
             letterEl.classList.add("animate__flipInX");
             letterEl.style = `background-color:${tileColor};`;
+
+            buttons.forEach(button => {
+                if (button.innerText.toLowerCase() === letter) {
+                    button.style = `background-color:${tileColor};`
+                }
+            })
         }, time * index);
     })
     guessedWordCount++
 
-    const currentWord = currentWordArray.join("")
 
+    const currentWord = currentWordArray.join("")
     if (currentWord === word) {
         alert("Well Done!")
+        guessedWords.push([])
         return;
     }
 
     if (guessedWords.length === 6) {
         alert("Unlucky, you ran out of guesses! The word was " + word + ".")
+        guessedWords.push([])
         return;
     }
 
