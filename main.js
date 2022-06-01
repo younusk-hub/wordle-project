@@ -2,7 +2,8 @@
 import { wordsArray } from './data/words.js';
 
 // Use query selector to get the buttons
-const buttons = document.querySelectorAll(".keyboard-row button")
+const buttons = document.querySelectorAll("button")
+const gameButtons = document.querySelectorAll("a")
 
 // Array of guessed words with an array of the word spilt into letters 
 const guessedWords = [[]]
@@ -12,7 +13,7 @@ let guessedWordCount = 0;
 console.log(Math.floor(Math.random() * (423 - 1) ) + 1);
 console.log(word);
 
-// Asigning the buttonss to their data-key so it can be used
+// Asigning the buttons to their data-key so it can be used
 for (let i = 0; i < buttons.length; i++) {
     buttons[i].onclick = ({target}) => {
         const letter = target.getAttribute("data-key")
@@ -42,11 +43,11 @@ for (let i = 0; i < buttons.length; i++) {
 const updateGuessedWords = letter => {
     const currentWordArray = guessedWords[guessedWords.length - 1]
     
-    if (currentWordArray && currentWordArray.length < 5) {
+    if (currentWordArray.length < 5) {
         currentWordArray.push(letter)
 
-        const availableSpaceEl = document.getElementById(String(availableSpace));
-        availableSpaceEl.textContent = letter
+        const availableSpaceElement = document.getElementById(String(availableSpace));
+        availableSpaceElement.textContent = letter
         availableSpace++
     }
 }
@@ -77,9 +78,9 @@ const handleSubmitWord = () => {
             const tileColor = getTileColor(letter, index);
 
             const letterId = firstLetterId + index;
-            const letterEl = document.getElementById(letterId);
-            letterEl.classList.add("animate__flipInX");
-            letterEl.style = `background-color:${tileColor};`;
+            const letterElement = document.getElementById(letterId);
+            letterElement.classList.add("animate__flipInX");
+            letterElement.style = `background-color:${tileColor};`;
 
             buttons.forEach(button => {
                 if (button.innerText.toLowerCase() === letter) {
@@ -93,7 +94,7 @@ const handleSubmitWord = () => {
 
     const currentWord = currentWordArray.join("")
     if (currentWord === word) {
-        alert("Well Done!")
+        
         guessedWords.push([])
         return;
     }
@@ -106,3 +107,4 @@ const handleSubmitWord = () => {
 
     guessedWords.push([])
 }
+
