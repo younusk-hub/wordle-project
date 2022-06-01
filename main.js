@@ -3,10 +3,10 @@ import { wordsArray } from './data/words.js';
 
 // Use query selector to get the buttons
 const buttons = document.querySelectorAll("button")
-const gameButtons = document.querySelectorAll("a")
+const reset = document.getElementById("restart")
 
 // Array of guessed words with an array of the word spilt into letters 
-const guessedWords = [[]]
+let guessedWords = [[]]
 let word = wordsArray[Math.floor(Math.random() * (423 - 1) ) + 1].toLowerCase()
 let availableSpace = 1;
 let guessedWordCount = 0;
@@ -28,8 +28,8 @@ for (let i = 0; i < buttons.length; i++) {
     
             if (currentWordArray.length !== 0) {
                 currentWordArray.pop()
-                const lastLetterEl = document.getElementById(String(availableSpace - 1))
-                lastLetterEl.textContent = ""
+                const lastLetterElement = document.getElementById(String(availableSpace - 1))
+                lastLetterElement.textContent = ""
 
                 availableSpace--
             }
@@ -108,3 +108,24 @@ const handleSubmitWord = () => {
     guessedWords.push([])
 }
 
+const resetGame = () => {
+    guessedWords = [[]]
+    word = wordsArray[Math.floor(Math.random() * (423 - 1) ) + 1].toLowerCase()
+    availableSpace = 1;
+    guessedWordCount = 0;
+    console.log(Math.floor(Math.random() * (423 - 1) ) + 1);
+    console.log(word);
+
+    buttons.forEach(button => {
+        button.style = `background-color: #949090;`
+    })
+
+    for (let i = 1; i < 31; i++) {
+        
+        
+    }
+
+}
+
+
+reset.addEventListener("click", resetGame)
