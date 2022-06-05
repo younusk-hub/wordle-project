@@ -90,12 +90,18 @@ const updateGuessedexpressions = numOrOp => {
 }
 
 const getTileColor = (numOrOp, index) => {
-    if (!expression.includes(numOrOp)) {
-        return "#2B2B2B"
-    } else if (numOrOp === expression.charAt(index)){
+    // if (!expression.includes(numOrOp)) {
+    //     return "#2B2B2B"
+    // } else if (numOrOp === expression.charAt(index)){
+    //     return "green"
+    // } else {
+    //     return "orange"
+    // }
+
+    if (numOrOp === expression.charAt(index)) {
         return "green"
     } else {
-        return "orange"
+        return "#2B2B2B"
     }
 }
 
@@ -119,11 +125,7 @@ const handleSubmitexpression = () => {
             numOrOpElement.classList.add("animate__flipInX");
             numOrOpElement.style = `background-color:${tileColor};`;
 
-            buttons.forEach(button => {
-                if (button.innerText === numOrOp) {
-                    button.style = `background-color:${tileColor};`
-                }
-            })
+
         }, time * index);
     })
     guessedExpressionCount++
@@ -160,15 +162,10 @@ const handleSubmitexpression = () => {
 
 const resetGame = () => {
     guessedExpressions = [[]]
-    // expression = expressionsArray[Math.floor(Math.random() * (423 - 1) ) + 1].toLowerCase()
+    expression = `${Math.floor(Math.random() * 9)+ 1}${operatorArr[Math.floor(Math.random()*3)]}${Math.floor(Math.random() * 9)+ 1}${operatorArr[Math.floor(Math.random()*3)]}${Math.floor(Math.random() * 9)+ 1}`
     availableSpace = 1;
     guessedExpressionCount = 0;
-    console.log(Math.floor(Math.random() * (423 - 1) ) + 1);
-    console.log(expression);
-
-    buttons.forEach(button => {
-        button.style = `background-color: #949090;`
-    })
+    displayGameTarget()
 
     for (let i = 1; i < 31; i++) {
         const clearSquares = document.getElementById(i)
