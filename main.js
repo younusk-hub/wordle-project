@@ -18,7 +18,7 @@ for (let i = 0; i < buttons.length; i++) {
     buttons[i].onclick = ({target}) => {
         const letter = target.getAttribute("data-key")
         console.log(letter);
-
+        
         if (letter === "enter") {
             handleSubmitWord();
             return;
@@ -35,7 +35,7 @@ for (let i = 0; i < buttons.length; i++) {
             }
             return;
         }
-        updateGuessedWords(letter)
+        updateGuessedWords(letter);
     }
 }
 
@@ -91,11 +91,24 @@ const handleSubmitWord = () => {
     })
     guessedWordCount++
 
-
     const currentWord = currentWordArray.join("")
     if (currentWord === word) {
         
         guessedWords.push([])
+        confetti({
+            particleCount: 200,
+            angle: 60,
+            spread: 100,
+            velocity: 100,
+            origin: { x: 0 }
+          });
+        confetti({
+            particleCount: 200,
+            angle: 120,
+            spread: 100,
+            velocity: 100,
+            origin: { x: 1 }
+        });
         return;
     }
 
@@ -121,11 +134,12 @@ const resetGame = () => {
     })
 
     for (let i = 1; i < 31; i++) {
-        
-        
+        const clearSquares = document.getElementById(i)
+        clearSquares.innerText = ""
+        clearSquares.style = `background-color: #373436;` 
+        clearSquares.classList.remove("animate__flipInX")
     }
 
 }
-
 
 reset.addEventListener("click", resetGame)

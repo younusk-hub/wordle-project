@@ -6,6 +6,10 @@
   color: rgb(219, 254, 253);
 }
 
+canvas {
+  background-color: transparent;
+}
+
 .heading {
   display: flex;
   flex-direction: column;
