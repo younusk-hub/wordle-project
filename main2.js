@@ -3,13 +3,53 @@ const buttons = document.querySelectorAll("button")
 const reset = document.getElementById("restart")
 
 // Array of guessed expressions with an array of the expression spilt into numOrOps 
+const operatorArr = ["+", "-", "X"]
 let guessedExpressions = [[]]
-let expression = "2+5-3"
+let expression = `${Math.floor(Math.random() * 9)+ 1}${operatorArr[Math.floor(Math.random()*3)]}${Math.floor(Math.random() * 9)+ 1}${operatorArr[Math.floor(Math.random()*3)]}${Math.floor(Math.random() * 9)+ 1}`
 let availableSpace = 1;
 let guessedExpressionCount = 0;
-console.log(Math.floor(Math.random() * (423 - 1) ) + 1);
 console.log(expression);
 
+const displayGameTarget = () => {
+    const expressionArray = expression.split("")
+    console.log(expressionArray);
+
+    for (let i = 0; i < expressionArray.length; i++) {
+        if (expressionArray[i] === "X") {
+            let tempAnswer = (parseInt(expressionArray[i - 1]) * parseInt(expressionArray[i + 1]));
+            console.log(tempAnswer);
+            expressionArray.splice((i-1), 3, tempAnswer);
+            console.log(expressionArray);
+            i--;
+        };
+    };
+
+    for (let i = 0; i < expressionArray.length; i++) {
+        if (expressionArray[i] === "+") {
+            let tempAnswer = (parseInt(expressionArray[i - 1]) + parseInt(expressionArray[i + 1]));
+            console.log(tempAnswer);
+            expressionArray.splice((i-1), 3, tempAnswer);
+            console.log(expressionArray);
+            i--;
+        };
+    };
+
+    for (let i = 0; i < expressionArray.length; i++) {
+        if (i !== 0 && expressionArray[i] === "-") {
+            console.log(i)
+            let tempAnswer = (parseInt(expressionArray[i - 1]) - parseInt(expressionArray[i + 1]));
+            console.log(tempAnswer);
+            expressionArray.splice((i-1), 3, tempAnswer);
+            console.log(expressionArray);
+            i--;
+        }
+    };
+
+    document.querySelector(".heading__target").textContent = `The target is: ${expressionArray}`
+
+}
+
+displayGameTarget()
 // Asigning the buttons to their data-key so it can be used
 for (let i = 0; i < buttons.length; i++) {
     buttons[i].onclick = ({target}) => {
@@ -80,7 +120,7 @@ const handleSubmitexpression = () => {
             numOrOpElement.style = `background-color:${tileColor};`;
 
             buttons.forEach(button => {
-                if (button.innerText.toLowerCase() === numOrOp) {
+                if (button.innerText === numOrOp) {
                     button.style = `background-color:${tileColor};`
                 }
             })
