@@ -1,4 +1,4 @@
-# wordle-project
+# Wordle project
 
 
 
